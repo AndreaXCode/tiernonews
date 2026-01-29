@@ -14,12 +14,11 @@ class JournalistController extends Controller
     {
         //return "Estoy en el index de JournalistController";
         //1. Buscar todos los journalist de la DB
-        $jounalists = Journalist::all();
-        return $jounalists;
-            
-        //2. Devolver una vista que los contenga
+        $journalists = Journalist::all();
+        //return $jounalists;
 
-
+        //2. Devolver una vista que los contenga (journalists  == selectAll());
+        return view("journalist.index", compact("journalists"));
     }
 
 
@@ -34,7 +33,9 @@ class JournalistController extends Controller
      */
     public function create()
     {
-        //
+        //TODO
+        //$journalist = 
+        return "holiiii";
     }
 
     /**
