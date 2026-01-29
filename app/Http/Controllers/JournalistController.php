@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Journalist;
 
 class JournalistController extends Controller
 {
@@ -11,8 +12,22 @@ class JournalistController extends Controller
      */
     public function index()
     {
-        //todo
+        //return "Estoy en el index de JournalistController";
+        //1. Buscar todos los journalist de la DB
+        $jounalists = Journalist::all();
+        return $jounalists;
+            
+        //2. Devolver una vista que los contenga
+
+
     }
+
+
+    public function sayName($name)
+    {
+        return "Hola $name";
+    }
+
 
     /**
      * Show the form for creating a new resource.
