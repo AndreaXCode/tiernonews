@@ -16,17 +16,23 @@ Route::get("/hola/{name}", function($name) {
     return "hola $name";
 });
 
-Route::get("/journalist", [JournalistController::class, "index"]);
+Route::get("/journalist", [JournalistController::class, "index"])->name("journalist");
 
 Route::get("/name/{name}", [JournalistController::class, "sayName"]);
 
 //...
 
 //Petición GET
-Route::get("/journalist/create", [JournalistController::class, "create"]);
+//Esto va a devolver la vista con el formulario de creación
+Route::get("/journalist/create", [JournalistController::class, "create"])->name("journalist.create");
+//Esto es para guardar el journslist con los datos rellenados del form de create  -->Petición POST
 
-//Petición POST
-Route::post("/journalist/create", [JournalistController::class, "store"]);
+Route::post("/journalist", [JournalistController::class, "store"])->name("journalist.store");
+
+Route::get("/journalist/{id}}", [JournalistController::class, "show"]);
+Route::put("/journalist/{id}}/edit", [JournalistController::class, "edit"]);
+Route::delete("/journalist/{id}}", [JournalistController::class, "update"]);
+Route::delete("/journalist/{id}}", [JournalistController::class, "destroy"]);
 
 
 //get /article  --> dev all
