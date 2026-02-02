@@ -29,10 +29,14 @@ Route::get("/journalist/create", [JournalistController::class, "create"])->name(
 
 Route::post("/journalist", [JournalistController::class, "store"])->name("journalist.store");
 
-Route::get("/journalist/{id}}", [JournalistController::class, "show"]);
-Route::put("/journalist/{id}}/edit", [JournalistController::class, "edit"]);
-Route::delete("/journalist/{id}}", [JournalistController::class, "update"]);
-Route::delete("/journalist/{id}}", [JournalistController::class, "destroy"]);
+Route::get("/journalist/{id}", [JournalistController::class, "show"]);
+
+
+Route::get("/journalist/{id}/edit", [JournalistController::class, "edit"]);
+Route::put("/journalist/{id}", [JournalistController::class, "update"])->name('journalist.update');
+
+
+Route::delete("/journalist/{id}", [JournalistController::class, "destroy"]);
 
 
 //get /article  --> dev all

@@ -44,7 +44,15 @@ class JournalistController extends Controller
     public function store(Request $request)
     {
         //return "Ahora te lo guardo";
-        Log::channel('stderr')->debug("Variable Request: " , [$request->nombre, $request->password]);
+        //Log::channel('stderr')->debug("Variable Request: " , [$request->nombre, $request->password]);
+        //todo $fillable    [$request->all()]
+        $j = new Journalist($request->all());
+        Log::channel('stderr')->debug("Variable Request: " , [$j->email]);
+        $j->save();
+        //Para crear el index tengo que buscar todos los periodistas en DB
+        $journalists = Journalist::all();
+        return view('journalist.index', compact("journalists"));
+    
     }
 
     /**
@@ -52,7 +60,11 @@ class JournalistController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //1. Busco en la Db a ese periodista
+        $journalist = Journalist::find($id);
+
+        //2. Devuelvo una vista con la info del periodista
+        return view('journalist.show', compact("journalist"));
     }
 
     /**
@@ -60,7 +72,11 @@ class JournalistController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //1. Busco el periodista en la DB
+        $journalist = Journalist::find($id);
+
+        //2. Devuelvo la con el formulario de edicion
+        return view('journalist.edit', compact("journalist"));
     }
 
     /**
@@ -68,7 +84,23 @@ class JournalistController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //1. Voy a actualizar todo menos la contraseña
+        //Busco el la DB el journalist con ese id
+        $journalist = Journalist::find($id);
+
+        //2. Actualizo los campos correspondientes
+        $journalist->name = $request->name;
+        $journalist->surname = $request->surname;
+        $journalist->email = $request->email;
+
+        //3. Hago el update
+        $journalist->update();
+
+        //4. Devuelvo al show
+        //Lo voy a buscar PERO SOLO PARA COMPROBAR QUE SE HA ACTUALIZADO
+        //$jounalist = Journalist::find($id);
+
+        return view('journalist.show', compact('journalist'));
     }
 
     /**

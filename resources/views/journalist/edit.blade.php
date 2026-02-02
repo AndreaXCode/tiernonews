@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a new journalist</title>
+    <title>Edit a journalist</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head> 
 
@@ -31,25 +31,27 @@
             <div class="col-md-6"><br><br>
                 <div class="card card-colorichi p-4">
                     <div class="card-body">
-                        <h2 class="text-center mb-4" style="color: #764ba2;">✨ Nuevo Journalist ✨</h2>
+                        <h2 class="text-center mb-4" style="color: #764ba2;">✨ Editar el Journalist ✨</h2>
                         <p class="text-center text-muted mb-4">Crea tu perfil con todo el estilo</p>
                         
-                        <form action="{{ route('journalist.store') }}" method="post">
+                        <form action="{{ route('journalist.update', $journalist->id) }}" method="post">
                             @csrf
+                            @method('put')
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Nombre</label>
-                                    <input name="name" type="text" class="form-control border-primary" id="name" placeholder="Ej: Elena">
+                                    <input value="{{$journalist->name}}" name="name" type="text" class="form-control border-primary" id="name">
                                 </div>
+
                                 <div class="col-md-6 mb-3">
                                     <label for="surname" class="form-label">Apellidos</label>
-                                    <input name="surname" type="text" class="form-control border-info" id="surname" placeholder="Ej: Garro">
+                                    <input value="{{$journalist->surname}}" name="surname" type="text" class="form-control border-info" id="surname">
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label name="email" for="email" class="form-label">Email</label>
-                                <input name="email" type="email" class="form-control border-success" id="email" placeholder="periodista@estilo.com">
+                                <input value="{{$journalist->email}}" name="email" type="email" class="form-control border-success" id="email">
                             </div>
 
                             <div class="mb-3">

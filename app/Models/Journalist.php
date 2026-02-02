@@ -6,13 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Journalist extends Model
 {
-    private int $id;
+    /*private int $id;
     private string $name;
     private string $surmane;
     private string $email;
-    private string $password;
+    private string $password;*/
 
-    public function __toString() {
+    //Aquí declaramos los atributos del modelo para que puedean ser rellenados
+    //automanticamente al leer de la DB
+    //Este fillable lo que hace es crear un constructor que recibe un solo parámetro:
+    //un array asociativo con las claves los nombres de los atributos
+    protected $fillable = ["id", "name", "surname", "email", "password"];
+
+    /*public function __toString() {
 
         if ($this->name != null) {
             return "$this->name
@@ -21,5 +27,5 @@ class Journalist extends Model
             - $this->password";
         }
         
-    }
+    }*/
 }

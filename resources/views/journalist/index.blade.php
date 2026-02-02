@@ -9,19 +9,42 @@
 </head> 
 <body>
     @include("components.header")
-    <h2>Journalists</h2>
-    <p class="bg-info">Estos son las o los periodistas de mi DB</p>
-
-    @foreach ($journalists as $j)
-    <div class ="card bg-warning">
-        <br>
-        <p>Nombre: {{ $j->name }}</p>
-        <p>Apellido: {{ $j->surname }}</p>
-        <p>Email: {{ $j->email }}</p>
-        <p>Contraseña: {{ $j->password }}</p>
+    <div class="container my-4 text-center">
+        <h2 class="mb-3">Journalists</h2>
+        <p class="bg-info text-white py-2 rounded">Estos son las o los periodistas de mi DB</p>
     </div>
-    <br><br>    
-    @endforeach
+
+    <div class="container">
+      <div class="row">
+
+        @foreach ($journalists as $j)
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-warning h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $j->name }} {{ $j->surname }}</h5>
+                    <p class="card-text"><strong>Email:</strong> {{ $j->email }}</p>
+                    <p class="card-text"><strong>Contraseña:</strong> {{ $j->password }}</p>
+                
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="#" class="btn btn-info">Editar</a>
+                    </div><br> 
+
+                    <form action="#" method="post">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            Eliminar
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        @endforeach
+
+      </div>
+    </div>
 
 
 </body>
