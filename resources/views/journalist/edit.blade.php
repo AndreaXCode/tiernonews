@@ -66,7 +66,7 @@
 
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-lg text-white" style="background: linear-gradient(to right, #ff0080, #ff8c00); border: none; border-radius: 10px;">
-                                    ¡Registrar con Brillo! 🚀
+                                    Guardar cambios 🚀
                                 </button>
                             </div>
                         </form>

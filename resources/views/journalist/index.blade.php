@@ -12,6 +12,11 @@
     <div class="container my-4 text-center">
         <h2 class="mb-3">Journalists</h2>
         <p class="bg-info text-white py-2 rounded">Estos son las o los periodistas de mi DB</p>
+        @if (@session('deleted'))
+            <div class="alert alert-success" role="alert">
+                {{ session('deleted') }}
+            </div>
+        @endif
     </div>
 
     <div class="container">
@@ -27,10 +32,10 @@
                 
                     <!-- Botones -->
                     <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-info">Editar</a>
+                        <a href="{{ route('journalist.edit', $j->id) }}" class="btn btn-info">Editar</a>
                     </div><br> 
 
-                    <form action="#" method="post">
+                    <form action="{{ route('journalist.destroy', $j->id) }}" method="post">
                     @csrf
                     @method('DELETE')
                         <button type="submit" class="btn btn-danger">

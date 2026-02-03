@@ -32,11 +32,11 @@ Route::post("/journalist", [JournalistController::class, "store"])->name("journa
 Route::get("/journalist/{id}", [JournalistController::class, "show"]);
 
 
-Route::get("/journalist/{id}/edit", [JournalistController::class, "edit"]);
+Route::get("/journalist/{id}/edit", [JournalistController::class, "edit"])->name('journalist.edit');
 Route::put("/journalist/{id}", [JournalistController::class, "update"])->name('journalist.update');
 
 
-Route::delete("/journalist/{id}", [JournalistController::class, "destroy"]);
+Route::delete("/journalist/{id}", [JournalistController::class, "destroy"])->name('journalist.destroy');
 
 
 //get /article  --> dev all

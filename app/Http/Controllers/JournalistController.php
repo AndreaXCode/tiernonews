@@ -108,6 +108,19 @@ class JournalistController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        //1. Busco el journalist que voy a eliminar
+        $j = Journalist::find($id);
+        if($j == null) {
+            $message = "El periodista no existe";
+        }
+
+        //2. Eliminamos si existe el id
+        Journalist::destroy($id);
+        $message = "Periodista " . $j->name . " eliminado";
+
+        //3. Devolvemos al index
+        $journalists = Journalist::all();
+        return redirect()->route('journalist')->with('deleted', $message);
     }
-}
+}    
