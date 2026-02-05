@@ -17,8 +17,8 @@ return new class extends Migration
 
             //Mis columnas:
             $table->string("name");
-            $table->string("surname");
-            $table->string("email")->unique()->nullable(false);
+            $table->string("surname")->nullable(true);
+            $table->string("email")->unique();
             $table->string("password");
 
         });

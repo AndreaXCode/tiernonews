@@ -18,14 +18,9 @@ class Journalist extends Model
     //un array asociativo con las claves los nombres de los atributos
     protected $fillable = ["id", "name", "surname", "email", "password"];
 
-    /*public function __toString() {
-
-        if ($this->name != null) {
-            return "$this->name
-            - $this->surmane
-            - $this->email
-            - $this->password";
-        }
-        
-    }*/
+    
+    //un  periodista tiene varios articulos (1-n)
+    public function articles() {
+        return $this->hasMany(Article::class);
+    }
 }

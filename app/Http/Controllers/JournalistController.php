@@ -43,15 +43,25 @@ class JournalistController extends Controller
      */
     public function store(Request $request)
     {
-        //return "Ahora te lo guardo";
+        
         //Log::channel('stderr')->debug("Variable Request: " , [$request->nombre, $request->password]);
-        //todo $fillable    [$request->all()]
+        //todo $fillable
         $j = new Journalist($request->all());
         Log::channel('stderr')->debug("Variable Request: " , [$j->email]);
+
+        //Antes de guardar en las bases de datos (DB) hacemos validaciones
+        $request->validate([
+            "name" => "required", 
+            "password" => "min:4|required",
+            "email" => "unique:journalists,email|required"
+        ]);
+
         $j->save();
         //Para crear el index tengo que buscar todos los periodistas en DB
-        $journalists = Journalist::all();
-        return view('journalist.index', compact("journalists"));
+        //$journalists = Journalist::all();
+        //return view('journalist.index', compact("journalists"));
+        return redirect()->route('journalist.create');
+
     
     }
 

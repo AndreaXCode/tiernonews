@@ -34,6 +34,12 @@
                         <h2 class="text-center mb-4" style="color: #764ba2;">✨ Nuevo Journalist ✨</h2>
                         <p class="text-center text-muted mb-4">Crea tu perfil con todo el estilo</p>
                         
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        @endif    
+
                         <form action="{{ route('journalist.store') }}" method="post">
                             @csrf
                             <div class="row">
