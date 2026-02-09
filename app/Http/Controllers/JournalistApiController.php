@@ -19,14 +19,32 @@ class JournalistApiController extends Controller
     }
 
 
-    /**
+   /**
      * Store a newly created resource in storage.
+     * Devuelve JSON con el Journalist creado
+     * $request contiene el JSON de la petición POST
      */
     public function store(Request $request)
     {
-        $j = new Journalist($request->all());
-        $j->save();
-        return response()->json($j);
+        $errors = false;
+        //Log::channel('stderr')->info("CONTRASEÑA", [$request->password]);
+        //validaciones:
+        if (!isset($request->name)) {
+            $errors = true;
+        } elseif (!isset($request->password)) {
+            $errors = true;
+        }
+        if (!$errors) {
+            $j = new Journalist($request->all());
+            //todo ver si existe el email
+            $j->save();
+            return response()->json($j);
+        } else {
+            return response()->json([
+                "message" => "error",
+                "data" => null
+            ], JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -99,4 +117,13 @@ class JournalistApiController extends Controller
         }
 
     }
+
+    //Para las búsquedas:
+    public function search(Request $request) {
+        Log::channel('stderr')->debug("VARIABLES DE BÚSQUEDA", [$request->name]);
+        //todo
+    }
+
+
+
 }

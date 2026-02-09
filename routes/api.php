@@ -18,3 +18,7 @@ Route::put("/journalist/{id}", [JournalistApiController::class, "update"]);
 
 
 Route::delete("/journalist/{id}", [JournalistApiController::class, "destroy"]);
+
+
+//endpoint para búsqueda de prueba
+Route::get('/journalist/search', [JournalistApiController::class, "search"]);

@@ -45,7 +45,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Nombre</label>
-                                    <input name="name" type="text" class="form-control border-primary" id="name" placeholder="Ej: Elena">
+                                    <input name="name" type="text" class="form-control border-primary" id="name" placeholder="Ej: Elena" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                                    <!-- old recupera el valor antiguo (si no pasó validación) -->
+                                <!-- ARROBAerror('name') contiene el error (si lo había) de validación -->
+                                @error('name') <small class="text-danger">{{ $message }}</small>
+                                @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="surname" class="form-label">Apellidos</label>
