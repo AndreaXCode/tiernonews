@@ -8,6 +8,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+//endpoint para búsqueda de prueba
+Route::get('/search', [JournalistApiController::class, "search"]);
+
 Route::get("/journalist/{id}", [JournalistApiController::class, "show"]);
 
 
@@ -19,6 +22,3 @@ Route::put("/journalist/{id}", [JournalistApiController::class, "update"]);
 
 Route::delete("/journalist/{id}", [JournalistApiController::class, "destroy"]);
 
-
-//endpoint para búsqueda de prueba
-Route::get('/journalist/search', [JournalistApiController::class, "search"]);

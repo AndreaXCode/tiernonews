@@ -8,6 +8,10 @@ use Illuminate\Http\JsonResponse;
 
 use App\Models\Journalist;
 
+use Illuminate\Support\Facades\Log;
+
+use App\Models\Article;
+
 class JournalistApiController extends Controller
 {
     /**
@@ -121,7 +125,38 @@ class JournalistApiController extends Controller
     //Para las búsquedas:
     public function search(Request $request) {
         Log::channel('stderr')->debug("VARIABLES DE BÚSQUEDA", [$request->name]);
-        //todo
+
+        //Buscar por nombre en la DB
+        //SELECT * FROM journalists WHERE name = ?
+        /*if (isset($request->name)) {
+            $journalists = Journalist::where('name', $request->name)->get();
+            return response()->json($journalists);
+        }
+
+        //buscar por email:
+        if (isset($request->email)) {
+            $journalists = Journalist::where('email', $request->email)->get(); //count();
+            return response()->json($journalists);
+        }*/
+
+            //Quiero devolver los articulos que tengan más de $request->minreaders readers
+        
+        if (isset($request->minreaders) && isset($request->maxreaders)) {
+            //AND con varias cláusulas del select
+            $articles = Article::where('readers', '>=', $request->minreaders)->where('readers', '<=', $request->maxreaders)
+        ->get();
+        return response()->json($articles);
+
+        } else if (isset($request->minreaders)) {
+            //Quiero devolver los articulos que tengan más de $request->minreaders readers
+            $articles = Article::where(
+                'readers', '>=', $request->minreaders
+        )->get();
+        return response()->json($articles);
+
+        }
+
+        
     }
 
 
