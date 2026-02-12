@@ -20,7 +20,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        //Devuelvo la vista con un formulario de creación
+        return view("article.create");
     }
 
     /**
@@ -28,8 +29,31 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        //1. Validar
+        //Verificaciones
+        //Antes de guardar en las bases de datos (DB) hacemos validaciones
+        $request->validate([
+            "title"=>"min:4|max:20|required",
+            "content"=>"min:10|max:500|required",
+            "readers"=>"required|integer|min:2|max:250"
+        ]);
+
+        //2. Guardar (Debo asegurarme de tener $fillable en el modelo de Article)
+        $a = new Article($request->all());
+
+        //Log para revisar
+        //Log::channel('stderr')->debug("Variable Request HHHHHHHHH: " , [$a->title]);
+
+        //Lo guardo
+        $a->save();
+
+        //other form:
+        //--> Article::create($request->all()); ??
+
+        //3. Redirigo
+        return redirect()->route('article.create');
+
+    }   
 
     /**
      * Display the specified resource.

@@ -32,46 +32,89 @@
                 <div class="card card-colorichi p-4">
                     <div class="card-body">
                         <h2 class="text-center mb-4" style="color: #764ba2;">✨ Nuevo Journalist ✨</h2>
-                        <p class="text-center text-muted mb-4">Crea tu perfil con todo el estilo</p>
-                        
-                        @if($errors->any())
-                            @foreach($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        @endif    
+                        <p class="text-center text-muted mb-4">Crea tu perfil con todo el estilo</p>   
 
                         <form action="{{ route('journalist.store') }}" method="post">
                             @csrf
+                            <!-- añade un campo hidden con un token imprescindible para que laravel le deje continuar -->
                             <div class="row">
+                                
+                                <!-- NOMBRE -->
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Nombre</label>
-                                    <input name="name" type="text" class="form-control border-primary" id="name" placeholder="Ej: Elena" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                                    <input 
+                                        name="name" 
+                                        type="text" 
+                                        class="form-control border-primary @error('name') is-invalid @enderror" 
+                                        value="{{ old('name') }}" 
+                                        id="name" 
+                                        placeholder="Ej: Elena" 
+                                        
+                                    >    
+
                                     <!-- old recupera el valor antiguo (si no pasó validación) -->
-                                <!-- ARROBAerror('name') contiene el error (si lo había) de validación -->
-                                @error('name') <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                    <!-- ARROBAerror('name') contiene el error (si lo había) de validación -->
+                                    @error('name') <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
+
+                                <!-- APELLIDO -->
                                 <div class="col-md-6 mb-3">
                                     <label for="surname" class="form-label">Apellidos</label>
-                                    <input name="surname" type="text" class="form-control border-info" id="surname" placeholder="Ej: Garro">
+                                    <input 
+                                        name="surname" 
+                                        type="text"
+                                        id="surname"
+                                        placeholder="Ej: Garro" 
+                                        value="{{ old('surname') }}"
+                                        class="form-control border-info @error('surname') is-invalid @enderror"                                                                           
+                                    >
+
+                                    @error('surname') 
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
 
+                            <!-- EMAIL -->
                             <div class="mb-3">
                                 <label name="email" for="email" class="form-label">Email</label>
-                                <input name="email" type="email" class="form-control border-success" id="email" placeholder="periodista@estilo.com">
+                                <input 
+                                    name="email" 
+                                    type="email" 
+                                    class="form-control border-success @error('email') is-invalid @enderror" 
+                                    id="email" 
+                                    placeholder="periodista@estilo.com">
+                                @error('email') <small class="text-danger"> {{ $message }}</small>
+                                @enderror
                             </div>
 
+                            <!-- PASSWORD -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input name="password" type="password" class="form-control border-warning" id="password" placeholder="••••••••">
-                            </div>
+                                <input 
+                                    name="password" 
+                                    type="password" 
+                                    class="form-control border-warning @error('password') is-invalid @enderror" 
+                                    id="password" 
+                                    placeholder="••••••••">
+                                @error('password') <small class="text-danger"> {{ $message }} </small>    
+                                @enderror
+                            </div><!-- -->
 
+                            <!-- CONFIRM PASSWORD -->
                             <div class="mb-4">
                                 <label for="confirmPassword" class="form-label">Repite la contraseña</label>
-                                <input name="confirmPassword" type="password" class="form-control border-danger" id="confirmPassword" placeholder="••••••••">
+                                <input 
+                                    name="confirmPassword" 
+                                    type="password" 
+                                    class="form-control border-danger @error('password') is-invalid @enderror" 
+                                    id="confirmPassword" 
+                                    placeholder="••••••••">
+                                    <!-- No se pone ARROBAerror with thr $message -->
                             </div>
 
+                            <!-- BUTTON -->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-lg text-white" style="background: linear-gradient(to right, #ff0080, #ff8c00); border: none; border-radius: 10px;">
                                     ¡Registrar con Brillo! 🚀
