@@ -12,7 +12,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        //1. Buscar todos los articles de la DB
+        //Dentro de una variaable guardo  todos los articles
+        $articles = Article::all();
+
+        //2. Devolver una vista que los contenga (articles  == selectAll());
+        return view("article.index", compact("articles"));
     }
 
     /**
@@ -46,6 +51,7 @@ class ArticleController extends Controller
 
         //Lo guardo
         $a->save();
+    
 
         //other form:
         //--> Article::create($request->all()); ??
@@ -60,23 +66,53 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.show', compact('article'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function editquestion(Article $article)
     {
-        //
+        //DUDAAA
     }
+
+    public function edit(string $id)
+    {
+        //1. Encontrar el articulo por el id (Buscar Article en la DB por id)
+        $article = Article::find($id);
+
+        //2. Devuelvo la vista con el formulario de edicion
+        return view("article.edit", compact('article'));
+    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Article $article)
     {
-        //
+        //1. Voy a actualizar todo menos la contraseña
+        //Busco el la DB el journalist con ese id  --> Encontrar por id
+        //$article = Article::find($article->$id);
+            //--> Ya no se necesita Article::find, $article ya es el objeto correcto.
+
+        //2. Actualizo los campos correspondientes
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->readers = $request->readers;
+
+        //3. Hago el update
+        //$article->update();
+
+        //LO HICE ASI:
+        $article->save();
+
+        //4. Devuelvo al show
+        //Lo voy a buscar PERO SOLO PARA COMPROBAR QUE SE HA ACTUALIZADO
+        //$jounalist = Journalist::find($id);
+
+        return view('article.show', compact('article'));
     }
 
     /**
@@ -84,7 +120,13 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        //1. Busco el article que voy a eliminar
+        //$a = Article::
+
+        //1. Elimino el articulo
+        $article->delete();
+
+        return redirect()->route('article')->with('success', 'Articulo eliminado corresctamente');
     }
     
 }

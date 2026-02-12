@@ -1,3 +1,55 @@
-<div>
-    <!-- Simplicity is an acquired taste. - Katharine Gerould -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+<body>
+    @include("components.headerArticle")
+
+    <div class="container my-4 text-center">
+        <h2 class="mb-3">Articles</h2>
+        <p class="bg-info text-white py-2 rounded">Estos son los articulos de mi DB</p>
+        @if (@session('deleted'))
+            <div class="alert alert-success" role="alert">
+                {{ session('deleted') }}
+            </div>
+        @endif
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        @foreach ($articles as $a)
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-success h-100 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $a->title }}</h5>
+                    <p class="card-text"><strong>Contenido:</strong> {{ $a->content }}</p>
+                    <p class="card-text"><strong>Lectores:</strong> {{ $a->readers }}</p>
+                
+                    <!-- Botones, se les pone una ruta -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{{ route('article.edit', $a->id) }}" class="btn btn-info">Editar</a>
+                    </div><br> 
+
+                    <form action="{{ route('article.destroy', $a->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            Eliminar
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        @endforeach
+
+      </div>
+    </div>
+</body>
+</html>

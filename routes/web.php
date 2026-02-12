@@ -45,7 +45,17 @@ Route::delete("/journalist/{id}", [JournalistController::class, "destroy"])->nam
 
 
 //Articles
-Route::resource("/article", ArticleController::class);
 
+Route::get("/article", [ArticleController::class, "index"])->name('article');
+
+Route::get("/article/create", [ArticleController::class, "create"])->name('article.create');
+
+Route::get("/article/{id}/edit", [ArticleController::class, "edit"])->name('article.edit');
+
+Route::delete("/article/{id}", [ArticleController::class, "destroy"])->name('article.destroy');
+
+Route::post("/article", [ArticleController::class, "store"])->name('article.store');
+
+Route::put("/article/{id}", [ArticleController::class, "update"])->name('article.update');
 
 //Route::get("/article/create", [ArticleController::class, "store"])->name('article.create');

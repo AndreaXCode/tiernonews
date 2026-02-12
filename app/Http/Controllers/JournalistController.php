@@ -88,7 +88,7 @@ class JournalistController extends Controller
         //1. Busco el periodista en la DB
         $journalist = Journalist::find($id);
 
-        //2. Devuelvo la con el formulario de edicion
+        //2. Devuelvo la vista con el formulario de edicion
         return view('journalist.edit', compact("journalist"));
     }
 
@@ -113,7 +113,9 @@ class JournalistController extends Controller
         //Lo voy a buscar PERO SOLO PARA COMPROBAR QUE SE HA ACTUALIZADO
         //$jounalist = Journalist::find($id);
 
-        return view('journalist.show', compact('journalist'));
+        //return view('journalist.show', compact('journalist'));
+        //HICE ESTO:
+        return redirect()->route('article.show', $article->$id)->with('success', 'Articulo actualizado con exito');
     }
 
     /**
