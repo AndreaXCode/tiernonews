@@ -52,7 +52,7 @@ class JournalistController extends Controller
         $request->validate([
             "name" => "min:4|max:8|required", 
             "surname" => "required",
-            "password" => "min:4|required",
+            "password" => "min:4|required|confirmed",
             "email" => "unique:journalists,email|required"
         ]);
 
@@ -63,7 +63,7 @@ class JournalistController extends Controller
         //Para crear el index tengo que buscar todos los periodistas en DB
         //$journalists = Journalist::all();
         //return view('journalist.index', compact("journalists"));
-        return redirect()->route('journalist.create');
+        return redirect()->route('journalist')->with('success', 'Periodista guardado');
 
     
     }
@@ -85,6 +85,10 @@ class JournalistController extends Controller
      */
     public function edit(string $id)
     {
+
+        //Antes de guardar en las bases de datos (DB) hacemos validaciones
+        
+
         //1. Busco el periodista en la DB
         $journalist = Journalist::find($id);
 
@@ -113,9 +117,9 @@ class JournalistController extends Controller
         //Lo voy a buscar PERO SOLO PARA COMPROBAR QUE SE HA ACTUALIZADO
         //$jounalist = Journalist::find($id);
 
-        //return view('journalist.show', compact('journalist'));
-        //HICE ESTO:
-        return redirect()->route('article.show', $article->$id)->with('success', 'Articulo actualizado con exito');
+        return view('journalist.show', compact('journalist'));
+        //HICE ESTO y me di fallo SETEEE
+        //return redirect()->route('journalist.show', $journalist->$id)->with('success', 'Pariodista actualizado con exito');
     }
 
     /**
@@ -130,7 +134,7 @@ class JournalistController extends Controller
             $message = "El periodista no existe";
         }
 
-        //2. Eliminamos si existe el id
+        //2. Eliminamos si existe el id (Eliminacion por ID)
         Journalist::destroy($id);
         $message = "Periodista " . $j->name . " eliminado";
 

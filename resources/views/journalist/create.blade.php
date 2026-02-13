@@ -106,7 +106,7 @@
                             <div class="mb-4">
                                 <label for="confirmPassword" class="form-label">Repite la contraseña</label>
                                 <input 
-                                    name="confirmPassword" 
+                                    name="password_confirmation" 
                                     type="password" 
                                     class="form-control border-danger @error('password') is-invalid @enderror" 
                                     id="confirmPassword" 

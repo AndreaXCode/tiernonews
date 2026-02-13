@@ -12,11 +12,21 @@
     <div class="container my-4 text-center">
         <h2 class="mb-3">Journalists</h2>
         <p class="bg-info text-white py-2 rounded">Estos son las o los periodistas de mi DB</p>
+        
+        <!-- Este mensaje es si llega después de eliminar un journalist y tiene en la sesión el campo "deleted" -->
         @if (@session('deleted'))
             <div class="alert alert-success" role="alert">
                 {{ session('deleted') }}
             </div>
         @endif
+
+        <!-- este mensaje es si llega después de crear un journalist y tiene en la sesión el campo "success" -->
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+        {{ session('success')  }}</div>
+        @endif
+
+
     </div>
 
     <div class="container">

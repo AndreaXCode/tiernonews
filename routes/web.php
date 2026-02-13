@@ -30,7 +30,7 @@ Route::get("/journalist/create", [JournalistController::class, "create"])->name(
 
 Route::post("/journalist", [JournalistController::class, "store"])->name("journalist.store");
 
-Route::get("/journalist/{id}", [JournalistController::class, "show"]);
+Route::get("/journalist/{id}", [JournalistController::class, "show"])->name("journalist.show");
 
 
 Route::get("/journalist/{id}/edit", [JournalistController::class, "edit"])->name('journalist.edit');
