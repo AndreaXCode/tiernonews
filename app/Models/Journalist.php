@@ -19,7 +19,7 @@ class Journalist extends Model
     protected $fillable = ["id", "name", "surname", "email", "password"];
 
     
-    //un  periodista tiene varios articulos (1-n)
+    //Un periodista tiene varios articulos (1-n)
     public function articles() {
         return $this->hasMany(Article::class);
     }

@@ -44,7 +44,7 @@ class JournalistController extends Controller
     public function store(Request $request)
     {
         
-        //Log::channel('stderr')->debug("Variable Request: " , [$request->nombre, $request->password]);
+        Log::channel('stderr')->debug("VARIABLE REQUEST: " , [$request->name, $request->email, $request->password]);
         //todo $fillable
         
 
@@ -57,7 +57,7 @@ class JournalistController extends Controller
         ]);
 
         $j = new Journalist($request->all());
-        Log::channel('stderr')->debug("Variable Request: " , [$j->email]);
+        //Log::channel('stderr')->debug("Variable Request: " , [$j->email]);
 
         $j->save();
         //Para crear el index tengo que buscar todos los periodistas en DB
@@ -91,6 +91,8 @@ class JournalistController extends Controller
 
         //1. Busco el periodista en la DB
         $journalist = Journalist::find($id);
+
+        //Log::channel('stderr')->debug("EDITANDO PERODISTA: " , [$jounalist->email, $jounalist->name, $jounalist->password]);
 
         //2. Devuelvo la vista con el formulario de edicion
         return view('journalist.edit', compact("journalist"));
